@@ -26,11 +26,14 @@ window.addEventListener('DOMContentLoaded', function(){
       TimerHours.textContent = timer.hours < 10 ? '0' + timer.hours : timer.hours;
       TimerMinutes.textContent = timer.minutes < 10 ? '0' + timer.minutes : timer.minutes;
       TimerSeconds.textContent = timer.seconds < 10 ? '0' + timer.seconds : timer.seconds;
-      if(timer.timeRemaining < 0){
-        clearInterval(interval);
-        TimerHours.textContent = '00';
-        TimerMinutes.textContent = '00';
-        TimerSeconds.textContent = '00';
+      if(timer.timeRemaining < 1){
+        let finishTime = new Date();
+        finishTime.setHours( finishTime.getHours() + 24 );
+        deadline = finishTime;
+        // clearInterval(interval);
+        // TimerHours.textContent = '00';
+        // TimerMinutes.textContent = '00';
+        // TimerSeconds.textContent = '00';
       }
     }
     let interval = setInterval(upDataClock, 1000);
