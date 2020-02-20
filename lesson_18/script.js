@@ -46,13 +46,88 @@ window.addEventListener('DOMContentLoaded', function(){
 
 
 
-  const toggleMenu = () =>{
+  const toggleMenu = () => {
     const btnMenu = document.querySelector('.menu');
     const menu = document.querySelector('menu');
+    const closeBtn = document.querySelector('.close-btn');
+    const menuITems = menu.querySelectorAll('ul>li');
 
-    btnMenu.addEventListener('click', () => {
-      menu.style.transform = 'translate(0)';
+    const actionMenu = () => {
+      menu.classList.toggle('active-menu');
+    };
+    btnMenu.addEventListener('click', actionMenu);
+    closeBtn.addEventListener('click', actionMenu);
+
+    menuITems.forEach((elem) => {
+      elem.addEventListener('click', actionMenu);
     });
   };
   toggleMenu();
+
+  const togglePopUp = () => {
+    const popup = document.querySelector('.popup');
+    const popupBtn = document.querySelectorAll('.popup-btn');
+    const popupClose = document.querySelector('.popup-close');
+
+
+    popupBtn.forEach((elem) => {
+      elem.addEventListener('click', () => {
+        popup.style.display = 'block';
+        const popupContent = document.querySelector('.popup-content');
+        
+        if(document.body.offsetWidth > 768){
+          popup.style.opacity = 0;
+          let finalOp = 100;
+          let opCount = 0;
+          let oPopUpInterval;
+          const fadeIn = () =>{
+            opCount +=5;
+            if(opCount <= finalOp){
+              popup.style.opacity = opCount + '%';
+              oPopUpInterval = requestAnimationFrame(fadeIn);
+            }else{
+              cancelAnimationFrame(oPopUpInterval);
+              popupAnimation();
+            }
+          };
+          fadeIn();
+
+          let count = -50;
+          popupContent.style.left = -50 + '%';
+          let final = 38;
+          let speed = 2;
+          let popupInterval;
+          let popupAnimation = function(){
+            count += speed;
+            if(count < final){
+              popupContent.style.left = count + '%';
+              popupInterval = requestAnimationFrame(popupAnimation);
+            }else{
+              cancelAnimationFrame(popupInterval);
+            }
+          };
+        }
+
+      });
+    });
+    popupClose.addEventListener('click', () => {
+      popup.style.display = 'none';
+      popupContent.style.left = '';
+    });
+  };
+  togglePopUp();
+
+  // const animPopUp = () => {
+
+
+
+  //   let popupIterval;
+  //   count++;
+  //   console.log(count);
+  //     popupContent.style.left = count * 2 + 'px';
+      
+  //   };
+  //   popupIterval = requestAnimationFrame(animPopUp);
+
+
 });
