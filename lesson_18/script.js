@@ -68,25 +68,24 @@ window.addEventListener('DOMContentLoaded', function(){
     const popup = document.querySelector('.popup');
     const popupBtn = document.querySelectorAll('.popup-btn');
     const popupClose = document.querySelector('.popup-close');
+    const popupContent = document.querySelector('.popup-content');
 
 
     popupBtn.forEach((elem) => {
       elem.addEventListener('click', () => {
         popup.style.display = 'block';
-        const popupContent = document.querySelector('.popup-content');
         
         if(document.body.offsetWidth > 768){
           popup.style.opacity = 0;
           let finalOp = 100;
           let opCount = 0;
-          let oPopUpInterval;
+          // let oPopUpInterval;
           const fadeIn = () =>{
             opCount +=5;
             if(opCount <= finalOp){
               popup.style.opacity = opCount + '%';
-              oPopUpInterval = requestAnimationFrame(fadeIn);
+              requestAnimationFrame(fadeIn);
             }else{
-              cancelAnimationFrame(oPopUpInterval);
               popupAnimation();
             }
           };
@@ -96,14 +95,14 @@ window.addEventListener('DOMContentLoaded', function(){
           popupContent.style.left = -50 + '%';
           let final = 38;
           let speed = 2;
-          let popupInterval;
+          // let popupInterval;
           let popupAnimation = function(){
             count += speed;
             if(count < final){
               popupContent.style.left = count + '%';
-              popupInterval = requestAnimationFrame(popupAnimation);
+              requestAnimationFrame(popupAnimation);
             }else{
-              cancelAnimationFrame(popupInterval);
+              // cancelAnimationFrame(popupInterval);
             }
           };
         }
@@ -117,17 +116,39 @@ window.addEventListener('DOMContentLoaded', function(){
   };
   togglePopUp();
 
-  // const animPopUp = () => {
+  document.addEventListener('click', function(e){
+    if(e.target.hash){
+      e.preventDefault();
+      scrollToEl( e.target.hash );
+    }
+  });
 
+  
 
+  const scrollToEl = (idEl) => {
+    
+    let el = document.querySelector(idEl);
+    let scrollFinal = el.offsetTop;
+    let scrollStep = window.pageYOffset;
+    let speed = ( scrollFinal - scrollStep ) / 60;
 
-  //   let popupIterval;
-  //   count++;
-  //   console.log(count);
-  //     popupContent.style.left = count * 2 + 'px';
-      
-  //   };
-  //   popupIterval = requestAnimationFrame(animPopUp);
+    function step(){
+      window.scrollTo(0, scrollStep );
+      if ( scrollStep >= scrollFinal ){
+        window.scrollTo(0, scrollFinal );
+      } else {
+        scrollStep = scrollStep + speed;
+        requestAnimationFrame(step);
+      }
+    }
+    step();
+    
+  };
 
+  const scrollNext = document.querySelector('.scroll-next');
+  scrollNext.addEventListener('click', function(e){
+    e.preventDefault();
+    scrollToEl(this.hash );
+  });
 
 });
