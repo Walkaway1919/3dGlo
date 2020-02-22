@@ -52,18 +52,48 @@ window.addEventListener('DOMContentLoaded', function(){
     const closeBtn = document.querySelector('.close-btn');
     const menuITems = menu.querySelectorAll('ul>li');
 
-    const actionMenu = () => {
+    const actionMenu = (event) => {
+      console.log('open');
       menu.classList.toggle('active-menu');
     };
 
-    menu.addEventListener('click', function(e){
-      console.log( e.target );
-      if (e.target.tagName === 'A'){
-        actionMenu();
+    // menu.addEventListener('click', function(e){
+    //   if (e.target.tagName === 'A'){
+    //     actionMenu(e);
+    //   }
+    // });
+
+    // btnMenu.addEventListener('click', actionMenu);
+
+    // document.addEventListener('click', function(e){
+    //   // родитель .menu
+    //   // родитель .active-menu и тег a
+    //   actionMenu();
+    // });
+
+    document.addEventListener('click', (event)=> {
+      let target = event.target;
+      
+      target = target.closest(".menu");
+      if( target ){
+        actionMenu(event);
+        return false;
+      }
+
+      target = event.target;
+      target = target.closest(".active-menu");
+      if( target ){
+        if ( event.target.tagName === 'A' ){
+          actionMenu(event);
+        }
+      } else {
+        if( menu.classList.contains('active-menu') ){
+          menu.classList.remove('active-menu');
+        }
       }
     });
 
-    btnMenu.addEventListener('click', actionMenu);
+
 
   };
   toggleMenu();
@@ -130,11 +160,10 @@ window.addEventListener('DOMContentLoaded', function(){
     }
   });
 
-  
-
   const scrollToEl = (idEl) => {
     
     let el = document.querySelector(idEl);
+    if( !el ) return false;
     let scrollFinal = el.offsetTop;
     let scrollStep = window.pageYOffset;
     let speed = ( scrollFinal - scrollStep ) / 60;
