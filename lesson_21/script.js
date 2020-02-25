@@ -328,7 +328,6 @@ window.addEventListener('DOMContentLoaded', function(){
 
   slider();
 
-
   //смена картинки
   let photos = document.querySelectorAll('.command__photo');
   photos.forEach((elem)=>{
