@@ -1,5 +1,6 @@
 window.addEventListener('DOMContentLoaded', function(){
   'use strict';
+// таймер
   function countTimer(deadline) {
     let TimerHours = document.querySelector('#timer-hours'),
         TimerMinutes = document.querySelector('#timer-minutes'),
@@ -8,8 +9,6 @@ window.addEventListener('DOMContentLoaded', function(){
     function getTimeRemaining(){
       let dateStop = deadline.getTime(),
           dateNow = new Date().getTime(),
-          
-
           timeRemaining = (dateStop - dateNow) / 1000,
           seconds = Math.floor(timeRemaining  % 60),
           minutes = Math.floor((timeRemaining / 60) % 60),
@@ -40,12 +39,10 @@ window.addEventListener('DOMContentLoaded', function(){
   
   deadline.setHours(deadline.getHours() + 24);
   // deadline.setSeconds(deadline.getSeconds() + 10);
-
   countTimer( deadline );
   // setInterval(countTimer, 1000, '01 march 2020');
 
-
-
+// меню
   const toggleMenu = () => {
     const btnMenu = document.querySelector('.menu');
     const menu = document.querySelector('menu');
@@ -98,6 +95,7 @@ window.addEventListener('DOMContentLoaded', function(){
   };
   toggleMenu();
 
+// попап
   const togglePopUp = () => {
     const popup = document.querySelector('.popup');
     const popupBtn = document.querySelectorAll('.popup-btn');
@@ -159,7 +157,7 @@ window.addEventListener('DOMContentLoaded', function(){
       scrollToEl( e.target.hash );
     }
   });
-
+// скролл
   const scrollToEl = (idEl) => {
     
     let el = document.querySelector(idEl);
@@ -186,7 +184,7 @@ window.addEventListener('DOMContentLoaded', function(){
     e.preventDefault();
     scrollToEl(this.hash );
   });
-
+//табы
   const tabs = () => {
     const tabHeader = document.querySelector('.service-header');
     const tab = tabHeader.querySelectorAll('.service-header-tab');
@@ -217,7 +215,6 @@ window.addEventListener('DOMContentLoaded', function(){
     });
   };
   tabs();
-
 
   //слайдер
   const slider = () =>{
@@ -370,7 +367,7 @@ const calc = (price = 100) => {
     countValue = 1,
     dayValue = 1;
     let typeValue = calcType.options[calcType.selectedIndex].value;
-    let squareValue = +calcSquare.value;
+    let squareValue = parseFloat(calcSquare.value);
 
     if(calcCount.value > 1){
       countValue += (calcCount.value - 1) / 10;
@@ -386,10 +383,20 @@ const calc = (price = 100) => {
       total = price * typeValue * squareValue * countValue * dayValue;
     } 
 
-    totalValue.textContent = total;
+  let start = 0;
+  let speed = Math.ceil( (total - start) / 30 );
+  requestAnimationFrame(function scrollNum(){
+    start += speed;
+    if (start < total){
+      totalValue.textContent = start;
+      requestAnimationFrame(scrollNum);
+    } else {
+      totalValue.textContent = total;
+    }
+  });
 
-  };
-
+};
+  
   calcBlock.addEventListener('change', (event) => {
     const target = event.target;
     if(target.matches('select') || target.matches('input')){
@@ -397,11 +404,11 @@ const calc = (price = 100) => {
     }
 
 
+    calcBlock.addEventListener("input", function(e){
+        let regexp = /[^\d]{0,}/g;
+        e.target.value = e.target.value.replace( regexp, "" );
+      });
 
   });
-  // calcBlock.addEventListener("input", function(e){
-  //     let regexp = /[^\d]{0,}/g;
-  //     e.target.value = e.target.value.replace( regexp, "" );
-  //   });
 };
 calc(100);
