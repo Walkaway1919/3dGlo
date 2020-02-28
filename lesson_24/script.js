@@ -429,7 +429,7 @@ window.addEventListener('DOMContentLoaded', function(){
   //send-ajax-form
   const sendForm = () => {
     const errorMessage = 'Что-то пошло не так';
-    const loadMessage = 'Загрузка...';
+    const loadMessage = '';
     const successMessage = 'Спасибо! мы скоро с вами свяжемся';
   
     // const form = document.getElementById('form1');
@@ -450,19 +450,33 @@ window.addEventListener('DOMContentLoaded', function(){
       }, (error) => {
         statusMessage.textContent = errorMessage;
         console.log(error(error));
-      });
+      }, event.target );
       event.target.reset();
     });
     
-    const postData = (body, outputData, errordata) => {
+    const postData = (body, outputData, errordata, form) => {
+      let statusImg = form.querySelector("img.form-status");
+      if(!statusImg){
+        statusImg = document.createElement('img');
+        statusImg.classList.add("form-status");
+        statusImg.style.width = 64+'px';
+        statusImg.style.height = 64+'px';
+
+        form.append(statusImg);
+      }
+      statusImg.src = 'images/spinner.gif';
+
       const request = new XMLHttpRequest();
       request.addEventListener('readystatechange', ()=>{
         if(request.readyState !==4){
           return;
         }
         if(request.status === 200){
+          
+          statusImg.src = 'images/success.png';
           outputData();
         }else{
+          statusImg.src = 'images/error.png';
           errordata(request.status);
         }
       });
