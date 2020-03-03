@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form action="/" id="translator">
+    <textarea name="eng" id="eng" cols="30" rows="10" placeholder="English text"></textarea>
+    <textarea name="rus" id="rus" cols="30" rows="10" placeholder="Русский текст"></textarea>
+    
+    <label> <input name="mode" value="to-rus" type="radio" checked> На русский</label>
+    <label> <input name="mode" value="to-eng" type="radio"> To English</label>
+    <button>Перевести</button>
+    <div id="status"></div>
+  </form>
+  <script src="script.js"></script>
+</body>
+</html>
