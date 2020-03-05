@@ -18,24 +18,25 @@ const sendForm = () => {
       },
       body: formData,
     }).then((response)=>{
-          if(response.status !== 200){
-            return new Error('статус ответа ' + response.status);
-          }
-          statusMessage.textContent = successMessage;
-          return new Promise((ok)=>{
-            setTimeout(()=>{
-              ok();
-            }, 5000);
-          });
-      })
-      .then(()=>{
-        statusMessage.style.display = 'none';
-      })
-      .catch((error) => {
-        statusMessage.textContent = errorMessage;
-        console.error('Статус запроса', error);
+      if(response.status !== 200){
+        throw new Error('статус ответа ' + response.status);
+      }
+      statusMessage.textContent = successMessage;
+      event.target.reset();
+      return new Promise((ok)=>{
+        setTimeout(()=>{
+          ok();
+        }, 5000);
       });
-    event.target.reset();
+    })
+    .then(()=>{
+      statusMessage.style.display = 'none';
+    })
+    .catch((error) => {
+      statusMessage.textContent = errorMessage;
+      console.error(error);
+    });
+    
   });
 };
 export default sendForm;
