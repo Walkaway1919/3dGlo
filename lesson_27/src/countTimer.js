@@ -19,6 +19,7 @@ const countTimer = () => {
       'seconds': seconds,
     };
   }
+  let interval;
   function upDataClock(){
     let timer = getTimeRemaining();
     TimerHours.textContent = timer.hours < 10 ? '0' + timer.hours : timer.hours;
@@ -29,9 +30,12 @@ const countTimer = () => {
       TimerHours.textContent = '00';
       TimerMinutes.textContent = '00';
       TimerSeconds.textContent = '00';
-    }
+    } else {
+      if( !interval ) {
+        interval = setInterval(upDataClock, 1000);
+      }
+    } 
   }
-  let interval = setInterval(upDataClock, 1000);
-
+  upDataClock();
 };
 export default countTimer;
