@@ -2,6 +2,8 @@
 import 'element-closest-polyfill';
 import 'dom-node-polyfills';
 import 'nodelist-foreach-polyfill';
+import 'promise-polyfill/src/polyfill';
+import 'whatwg-fetch';
 import countTimer from './countTimer';
 import toggleMenu from './toggleMenu';
 import togglePopUp from './togglePopUp';
