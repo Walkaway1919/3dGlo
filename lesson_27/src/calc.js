@@ -53,9 +53,10 @@ const calc = (price = 100) => {
   });
 
   calcBlock.addEventListener("input", function(e){
+    const target = e.target;
     if(target.matches('input')){
       let regexp = /[^\d]{0,}/g;
-      e.target.value = e.target.value.replace( regexp, "" );
+      target.value = e.target.value.replace( regexp, "" );
     }
     
   });
