@@ -10,6 +10,7 @@ const sendForm = () => {
     event.target.appendChild(statusMessage);
     statusMessage.textContent = loadMessage;
     const formData = new FormData(event.target);
+    statusMessage.style.display = 'block';
 
     fetch('./server.php', {
       method: "POST",
@@ -23,20 +24,16 @@ const sendForm = () => {
       }
       statusMessage.textContent = successMessage;
       event.target.reset();
-      return new Promise((ok)=>{
-        setTimeout(()=>{
-          ok();
-        }, 5000);
-      });
-    })
-    .then(()=>{
-      statusMessage.style.display = 'none';
     })
     .catch((error) => {
       statusMessage.textContent = errorMessage;
       console.error(error);
+    })
+    .finally(()=>{
+      setTimeout(()=>{
+        statusMessage.style.display = 'none';
+      }, 5000);
     });
-    
   });
 };
 export default sendForm;
