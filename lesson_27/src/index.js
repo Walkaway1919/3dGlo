@@ -1,4 +1,3 @@
-'use strict';
 import countTimer from './countTimer';
 import toggleMenu from './toggleMenu';
 import togglePopUp from './togglePopUp';
@@ -10,13 +9,13 @@ import sendForm from './sendForm';
 import photoChange from './photoChange';
 import checkField from './checkField';
 
-countTimer();
+countTimer(); // таймер обратного отсчета
 toggleMenu();
 togglePopUp();
 tabs();
 slider();
 calc();
+checkField(); // валидатор полей отправки
 sendForm();
-photoChange();
-checkField();
-scrollElems();
+photoChange(); // Смена фото по наведению  src <-> data-img
+scrollElems(); // Плавный скролл к элементу

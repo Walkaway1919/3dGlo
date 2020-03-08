@@ -6,6 +6,7 @@ const calc = (price = 100) => {
   const calcCount = document.querySelector('.calc-count');
   const totalValue = document.getElementById('total');
   const countSum = () => {
+
     let total = 0,
     countValue = 1,
     dayValue = 1;
@@ -13,19 +14,20 @@ const calc = (price = 100) => {
     let squareValue = parseFloat(calcSquare.value);
 
     if(calcCount.value > 1){
-      countValue += (calcCount.value - 1) / 10;
+      countValue += (calcCount.value - 1) / 10; // каждое помещение добавляет +10% к цене
     }
 
     if(calcDay.value && calcDay.value < 5){
-      dayValue *= 2;
+      dayValue *= 2; // до 5 дней берем в 2 раза больше
     }else if(calcDay.value && calcDay.value < 10){
-      dayValue *= 1.5;
+      dayValue *= 1.5; // до 10 дней берем на 50% больше
     }
 
     if(typeValue && squareValue){
       total = Math.floor( price * typeValue * squareValue * countValue * dayValue );
     } 
 
+    // анимированное изменение результата
     let start = +totalValue.textContent;
     let speed = Math.ceil( (total - start) / 30 );
     requestAnimationFrame(function scrollNum(){
@@ -57,7 +59,6 @@ const calc = (price = 100) => {
       let regexp = /[^\d]{0,}/g;
       e.target.value = e.target.value.replace( regexp, "" );
     }
-    
   });
 
 };

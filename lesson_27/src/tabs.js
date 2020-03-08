@@ -3,7 +3,7 @@ const tabs = () => {
   const tab = tabHeader.querySelectorAll('.service-header-tab');
   const tabContent =  document.querySelectorAll('.service-tab');
 
-  const toggleTabContent = (index) => {
+  const toggleTabContent = (index) => { // скрывает ненужные, показывает нужный по индексу
     for(let i = 0; i < tabContent.length; i++){
       if(index === i){
         tab[i].classList.add('active');
