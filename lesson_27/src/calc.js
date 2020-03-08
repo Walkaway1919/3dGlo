@@ -58,7 +58,6 @@ const calc = (price = 100) => {
       let regexp = /[^\d]{0,}/g;
       target.value = e.target.value.replace( regexp, "" );
     }
-    
   });
 
 };
