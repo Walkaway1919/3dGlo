@@ -1,3 +1,4 @@
+'use strict';
 import 'element-closest-polyfill';
 import 'dom-node-polyfills';
 import 'nodelist-foreach-polyfill';
