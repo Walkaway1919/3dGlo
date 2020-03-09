@@ -1,3 +1,4 @@
+'use strict';
 const countTimer = () => {
   let deadline = new Date();
   deadline.setHours(deadline.getHours() + 24);

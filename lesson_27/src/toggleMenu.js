@@ -1,7 +1,7 @@
+'use strict';
 const toggleMenu = () => {
   const menu = document.querySelector('menu');
   const actionMenu = (event) => {
-    console.log('open');
     menu.classList.toggle('active-menu');
   };
 

@@ -1,3 +1,4 @@
+'use strict';
 const photoChange = () => {
   let photos = document.querySelectorAll('.command__photo');
   photos.forEach((elem)=>{

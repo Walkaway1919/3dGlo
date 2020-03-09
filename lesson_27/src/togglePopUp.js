@@ -1,3 +1,4 @@
+'use strict';
 const togglePopUp = () => {
   const popup = document.querySelector('.popup');
   const popupBtn = document.querySelectorAll('.popup-btn');
@@ -9,13 +10,13 @@ const togglePopUp = () => {
         popup.style.opacity = 0;
         let finalOp = 100;
         let opCount = 0;
-        const fadeIn = () =>{
+        const fadeIn = () => { // сначала показываем плавное затемнение 
           opCount +=5;
           if(opCount <= finalOp){
-            popup.style.opacity = opCount + '%';
+            popup.style.opacity = opCount/100;
             requestAnimationFrame(fadeIn);
           }else{
-            popupAnimation();
+            popupAnimation(); // после затемнения выводим окно
           }
         };
         fadeIn();
@@ -24,14 +25,11 @@ const togglePopUp = () => {
         popupContent.style.left = -50 + '%';
         let final = 38;
         let speed = 2;
-        // let popupInterval;
-        let popupAnimation = function(){
+        let popupAnimation = function(){ // анимация появления окна
           count += speed;
           if(count < final){
             popupContent.style.left = count + '%';
             requestAnimationFrame(popupAnimation);
-          }else{
-            // cancelAnimationFrame(popupInterval);
           }
         };
       }

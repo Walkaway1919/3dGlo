@@ -1,3 +1,4 @@
+'use strict';
 const scrollElems = () => {
   const scrollToEl = (idEl) => {
     let el = document.querySelector(idEl);
